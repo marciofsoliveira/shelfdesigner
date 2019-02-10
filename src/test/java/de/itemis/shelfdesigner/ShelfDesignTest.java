@@ -8,8 +8,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 import static org.assertj.core.api.Assertions.*;
 
 /**
- * - add lines
- *
+ * - Max High
+ * - Max Width
  * 5- Remove column
  * 6- Remove line
  * 7- Move column

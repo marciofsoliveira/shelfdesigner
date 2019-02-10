@@ -8,8 +8,8 @@ import java.util.List;
  */
 class ShelfDesign {
 
-    private int width;
-    private int buildingArea;
+    private int wallWidth;
+    private int buildingWidth;
     private List<Shelf> shelves;
 
     ShelfDesign(){
@@ -17,19 +17,19 @@ class ShelfDesign {
     }
 
     public void addWall(int width) {
-        this.width = width;
+        this.wallWidth = width;
     }
 
     public int getWallWidth(){
-        return width;
+        return wallWidth;
     }
 
     public void addBuildingWidth(int buildingArea) {
-        this.buildingArea = buildingArea;
+        this.buildingWidth = buildingArea;
     }
 
     public int getBuildingWidth(){
-        return buildingArea;
+        return buildingWidth;
     }
 
     public void addColumn(int width) {
@@ -45,8 +45,7 @@ class ShelfDesign {
     }
 
     public int getShelfWidth() {
-        int shelfWidth = shelves.stream().mapToInt(shelf -> shelf.getWidth()).sum();
-        return shelfWidth;
+        return shelves.stream().mapToInt(shelf -> shelf.getWidth()).sum();
     }
 
     public int getColumnHigh(int column) {
