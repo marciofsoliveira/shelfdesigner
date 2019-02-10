@@ -6,12 +6,14 @@ import java.util.List;
 public class Shelf {
 
     private int width;
-
+    private int maxHigh;
     private List<Integer> lines;
 
-    Shelf(int width){
+
+    Shelf(int width, int maxHigh){
         lines = new ArrayList<>();
         this.width = width;
+        this.maxHigh = maxHigh;
     }
 
     public int getWidth() {
@@ -22,7 +24,12 @@ public class Shelf {
        return lines.stream().mapToInt(line -> line).sum();
     }
 
-    public void addLine(int hight) {
-        lines.add(hight);
+    public boolean addLine(int high) {
+        if(getHigh()+high >maxHigh){
+            return false;
+        }
+        else{
+            return lines.add(high);
+        }
     }
 }

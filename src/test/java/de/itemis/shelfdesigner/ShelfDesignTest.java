@@ -8,22 +8,26 @@ import org.mockito.junit.MockitoJUnitRunner;
 import static org.assertj.core.api.Assertions.*;
 
 /**
- * - Max High
- * - Max Width
- * 5- Remove column
- * 6- Remove line
- * 7- Move column
- * 8- Move line
- *
+ * - Remove column
+ * - Remove line
+ * - Move column
+ * - Move line
+ * - persist
+ * - have multiple shelves designed
  */
 @RunWith(MockitoJUnitRunner.class)
 public class ShelfDesignTest {
 
-    private ShelfDesign designer;
+    private ShelfDesigner designer;
 
     @Before
-    public void givenShelf() {
-        designer = new ShelfDesign();
+    public void givenShelfDesign() {
+        designer = new ShelfDesigner(200, 100);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void maxBuildingWidthShallNotExceedWallWidth(){
+        designer.setMaxBuildWidth(201);
     }
 
     @Test
@@ -34,34 +38,49 @@ public class ShelfDesignTest {
     }
 
     @Test
-    public void whenAddedBuildingWidthWith190Centimeters() {
-        designer.addBuildingWidth(190);
-
-        assertThat(designer.getBuildingWidth()).isEqualTo(190);
-    }
-
-    @Test
     public void whenAddedColumnWithWidth30Centimeters() {
-        designer.addColumn(30);
+        designer.addColumn(30, 100);
 
         assertThat(designer.getColumn()).isEqualTo(30);
     }
 
     @Test
     public void whenAddedTwoColumnsWithWidth50Centimeters() {
-        designer.addColumn(50);
-        designer.addColumn(50);
+        designer.addColumn(50, 100);
+        designer.addColumn(50, 100);
 
         assertThat(designer.getShelfWidth()).isEqualTo(100);
     }
 
     @Test
     public void whenAddedTwoLinesWithHigh50() {
-        designer.addColumn(50);
+        designer.addColumn(50, 100);
         designer.addLine(0, 50);
         designer.addLine(0, 50);
 
         assertThat(designer.getColumnHigh(0)).isEqualTo(100);
     }
 
+    @Test
+    public void addingLineHigherThanMaxHighIsNotAllowed() {
+        designer.addColumn(50, 100);
+        designer.addLine(0, 50);
+        designer.addLine(0, 50);
+
+        boolean result = designer.addLine(0, 50);
+
+        assertThat(result).isFalse();
+        assertThat(designer.getColumnHigh(0)).isEqualTo(100);
+    }
+
+    @Test
+    public void addingColumnsLargerThanMaxBuildingWidthIsNotAllowed() {
+        designer.addColumn(50, 100);
+        designer.addColumn(50, 100);
+
+        boolean result = designer.addColumn(50, 100);
+
+        assertThat(result).isFalse();
+        assertThat(designer.getShelfWidth()).isEqualTo(100);
+    }
 }
