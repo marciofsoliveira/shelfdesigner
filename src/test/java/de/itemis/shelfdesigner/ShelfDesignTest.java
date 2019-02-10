@@ -48,13 +48,6 @@ public class ShelfDesignTest {
     }
 
     @Test
-    public void whenAddedLineWidth50Centimerts() {
-        designer.addLine(50);
-
-        assertThat(designer.getLine()).isEqualTo(50);
-    }
-
-    @Test
     public void whenAddedTwoColumnsWithWidth50Centimeters() {
         designer.addColumn(50);
         designer.addColumn(50);
@@ -64,10 +57,11 @@ public class ShelfDesignTest {
 
     @Test
     public void whenAddedTwoLinesWithHigh50() {
-        designer.addLine(50);
-        designer.addLine(50);
+        designer.addColumn(50);
+        designer.addLine(0, 50);
+        designer.addLine(0, 50);
 
-        assertThat(designer.getColumnHight(0)).isEqualTo(100);
+        assertThat(designer.getColumnHigh(0)).isEqualTo(100);
     }
 
 }

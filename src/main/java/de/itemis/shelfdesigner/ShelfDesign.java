@@ -10,11 +10,10 @@ class ShelfDesign {
 
     private int width;
     private int buildingArea;
-    private int lineHigh;
-    private List<Integer> columns;
+    private List<Shelf> shelves;
 
     ShelfDesign(){
-        columns = new ArrayList<>();
+        shelves = new ArrayList<>();
     }
 
     public void addWall(int width) {
@@ -34,28 +33,23 @@ class ShelfDesign {
     }
 
     public void addColumn(int width) {
-        this.columns.add(width);
+        shelves.add( new Shelf(width));
     }
 
     public int getColumn() {
-
-        return columns.get(0);
+        return shelves.get(0).getWidth();
     }
 
-    public void addLine(int high){
-        this.lineHigh = high;
-    }
-
-    public int getLine() {
-        return lineHigh;
+    public void addLine(int shelf, int high){
+        shelves.get(shelf).addLine(high);
     }
 
     public int getShelfWidth() {
-        int shelfWidth = columns.stream().mapToInt(value -> value).sum();
+        int shelfWidth = shelves.stream().mapToInt(shelf -> shelf.getWidth()).sum();
         return shelfWidth;
     }
 
-    public int getColumnHight(int column) {
-        return 0;
+    public int getColumnHigh(int column) {
+        return shelves.get(column).getHigh();
     }
 }
